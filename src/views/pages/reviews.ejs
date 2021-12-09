@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+	<%- include('../partials/menu') %>
+
+		
+
+        <div class="container">
+            <form action="/get_artist_reviews" method="post">
+                <div class="row">
+                <input type="text" name="search_review"placeholder="Search Review">
+                  <button class= "btn btn-primary" type="submit">Filter</button>
+              </div>
+            </form>
+            
+        </div>
+        <br> <br> <br> <br>
+        <table class="table table-bordered table-sm" id="reviews_table">
+            <tr>
+                <th class="align-bottom" rowspan="1">Artist</th>
+                <th class="align-bottom" rowspan="1">Review</th>
+                <th class="align-bottom" rowspan="1">Review Date</th>
+            </tr>
+
+            <% 
+				if(data) {
+					var insert='';
+					data.forEach(function(item){ 
+							insert +='<tr><td>' + item.artist + '</td><td>' + item.review + '</td><td>' + item.review_date + '</td>';
+							
+						}); %>
+						<%- insert %>
+					<% } %>
+        </table>
+
+		
+	<%- include('../partials/footer') %>

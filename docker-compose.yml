@@ -1,0 +1,27 @@
+services:
+  heroku-cli:
+    build: ./heroku
+    env_file: ./heroku/.env
+
+  db:
+    build: ./db
+    env_file: .env
+    volumes:
+      - ./db/init_data:/docker-entrypoint-initdb.d
+      - final-project-db-volume:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: final-sarthak-shukla
+    depends_on:
+      - db
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+
+volumes:
+  final-project-db-volume: {}
